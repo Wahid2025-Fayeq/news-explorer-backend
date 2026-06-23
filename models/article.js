@@ -11,12 +11,10 @@ const articleSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-
   },
   text: {
     type: String,
     required: true,
-
   },
   date: {
     type: String,
@@ -29,19 +27,24 @@ const articleSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
-    validate: { validator: validator.isURL, message: "Invalid article URL" },
+    validate: {
+      validator: validator.isURL,
+      message: "Invalid article URL",
+    },
   },
   image: {
     type: String,
     required: true,
-    validate: { validator: validator.isURL, message: "Invalid  image URL" },
+    validate: {
+      validator: validator.isURL,
+      message: "Invalid image URL",
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-    select: false,
-  }
+  },
 });
 
 module.exports = mongoose.model("article", articleSchema);

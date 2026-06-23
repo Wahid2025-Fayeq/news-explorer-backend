@@ -1,6 +1,7 @@
 const User = require("../models/user");
+const NotFoundError = require("../errors/NotFoundError");
 
-const getCurrentUser = (req, res) => {
+const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail()
     .then((user) => {
@@ -9,11 +10,12 @@ const getCurrentUser = (req, res) => {
         name: user.name,
       });
     })
+    .catch((err) => {
+      if (err.name === "DocumentNotFoundError") {
+        return next(new NotFoundError("The requested user could not be found"));
+      }
 
-    .catch(() => {
-      return res
-        .status(404)
-        .send({ message: "The requested user could not be found" });
+      return next(err);
     });
 };
 
