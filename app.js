@@ -4,9 +4,12 @@ const cors = require("cors");
 require("dotenv").config();
 
 const auth = require("./middlewares/auth");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 const usersRouter = require("./routes/users");
 const articlesRouter = require("./routes/articles");
 const NotFoundError = require("./errors/NotFoundError");
+
+const { createUser, login } = require("./controllers/users");
 
 const app = express();
 
@@ -15,6 +18,7 @@ const { PORT = 3001, MONGODB_URI = "mongodb://127.0.0.1:27017/news-explorer" } =
 
 app.use(cors());
 app.use(express.json());
+app.use(requestLogger);
 
 mongoose
   .connect(MONGODB_URI)
@@ -30,6 +34,9 @@ app.get("/", (req, res) => {
   res.send({ message: "News Explorer API is running" });
 });
 
+app.post("/signup", createUser);
+app.post("/signin", login);
+
 // Protected routes
 app.use(auth);
 
@@ -40,6 +47,8 @@ app.use("/articles", articlesRouter);
 app.use((req, res, next) => {
   next(new NotFoundError("Requested resource not found"));
 });
+
+app.use(errorLogger);
 
 // Centralized error handler
 app.use((err, req, res, next) => {
