@@ -5,8 +5,9 @@ const User = require("../models/user");
 const BadRequestError = require("../errors/BadRequestError");
 const UnauthorizedError = require("../errors/UnauthorizedError");
 const ConflictError = require("../errors/ConflictError");
+const NotFoundError = require("../errors/NotFoundError");
 
-const { JWT_SECRET = "dev-secret" } = process.env;
+const { JWT_SECRET } = require("../utils/config");
 
 const createUser = (req, res, next) => {
   const { email, password, name } = req.body;
@@ -67,7 +68,7 @@ const login = (req, res, next) => {
 
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail()
+    .orFail(() => new NotFoundError("User not found"))
     .select("-__v")
     .then((user) => res.send(user))
     .catch(next);
