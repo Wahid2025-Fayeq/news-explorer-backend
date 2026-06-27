@@ -2,12 +2,12 @@
 
 This is the backend API for the News Explorer application. It allows users to register, sign in, and manage saved news articles.
 
-## Live API
+## Live Links
 
 Backend API:
 https://mine.bz.jumpingcrab.com/api/
 
-Frontend Link:
+Frontend Repository:
 https://github.com/Wahid2025-Fayeq/news-explorer-frontend
 
 ## Technologies Used
@@ -21,6 +21,9 @@ https://github.com/Wahid2025-Fayeq/news-explorer-frontend
 - Celebrate/Joi validation
 - dotenv
 - CORS
+- PM2
+- NGINX
+- Google Cloud Platform (GCP)
 
 ## Features
 
@@ -58,9 +61,9 @@ npm run dev
 Create a `.env` file in the root directory:
 
 ```env
-PORT=3001
+PORT=3000
 MONGODB_URI=mongodb://127.0.0.1:27017/news-explorer
-JWT_SECRET=dev-secret
+JWT_SECRET=your-secret-key
 ```
 
 ## API Routes
@@ -136,6 +139,21 @@ Request body:
 
 Deletes a saved article by ID.
 
-## Project Status
+## Testing
 
-The backend has been tested successfully using terminal `curl` commands. Authentication, protected routes, article creation, and article deletion are working correctly.
+The backend API has been tested successfully using both the Postman application and terminal `curl` commands.
+
+The following endpoints were verified:
+
+- User registration (`POST /signup`)
+- User authentication (`POST /signin`)
+- Get current user (`GET /users/me`)
+- Create article (`POST /articles`)
+- Get saved articles (`GET /articles`)
+- Delete article (`DELETE /articles/:articleId`)
+
+Authentication, protected routes, article creation, article retrieval, and article deletion are all functioning correctly.
+
+## Deployment
+
+The backend is deployed on a Google Cloud virtual machine using PM2 as the process manager and NGINX as the reverse proxy. HTTPS is configured using SSL certificates.
