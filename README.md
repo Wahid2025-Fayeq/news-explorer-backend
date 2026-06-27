@@ -2,6 +2,14 @@
 
 This is the backend API for the News Explorer application. It allows users to register, sign in, and manage saved news articles.
 
+## Live API
+
+Backend API:
+https://mine.bz.jumpingcrab.com/api/
+
+Frontend Link:
+https://github.com/Wahid2025-Fayeq/news-explorer-frontend
+
 ## Technologies Used
 
 - Node.js
