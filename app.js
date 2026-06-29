@@ -4,7 +4,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const { errors } = require("celebrate");
 
-const rateLimit = require("express-rate-limit");
+const limiter = require("./middlewares/rateLimiter");
 const { PORT, MONGODB_URI } = require("./utils/config");
 const router = require("./routes");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
@@ -13,10 +13,6 @@ const NotFoundError = require("./errors/NotFoundError");
 
 const app = express();
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
 app.use(limiter);
 app.use(helmet());
 app.use(cors());
