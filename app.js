@@ -7,12 +7,14 @@ const router = require("./routes");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const errorHandler = require("./middlewares/error-handler");
 const NotFoundError = require("./errors/NotFoundError");
+const helmet = require("helmet");
 
 const app = express();
 
 const { PORT = 3000, MONGODB_URI = "mongodb://127.0.0.1:27017/news-explorer" } =
   process.env;
 
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
