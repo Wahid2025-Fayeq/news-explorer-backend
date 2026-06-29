@@ -9,9 +9,7 @@ const auth = require("../middlewares/auth");
 router.post("/signup", validateSignup, createUser);
 router.post("/signin", validateSignin, login);
 
-router.use(auth);
-
-router.use("/users", usersRouter);
-router.use("/articles", articlesRouter);
+router.use("/users", auth, usersRouter);
+router.use("/articles", auth, articlesRouter);
 
 module.exports = router;
