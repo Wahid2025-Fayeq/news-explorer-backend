@@ -5,7 +5,7 @@ This is the backend API for the News Explorer application. It allows users to re
 ## Live Links
 
 Backend API:
-https://mine.bz.jumpingcrab.com/api/
+https://api.newsexplorer.xyz
 
 Frontend Repository:
 https://github.com/Wahid2025-Fayeq/news-explorer-frontend
